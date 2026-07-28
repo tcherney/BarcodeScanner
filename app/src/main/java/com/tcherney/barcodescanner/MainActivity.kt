@@ -15,6 +15,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableFloatStateOf
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -30,6 +31,8 @@ class MainActivity : ComponentActivity() {
         setContent {
             val context = LocalContext.current
             val total = remember {mutableFloatStateOf(0f)}
+            val TOTAL_SCANS = 10
+            val currScan = remember { mutableIntStateOf(0) }
             val lastScan = remember {mutableListOf("")}
             val lastScanStatus = remember {mutableStateOf("")}
             BarcodeScannerTheme {
@@ -43,10 +46,18 @@ class MainActivity : ComponentActivity() {
                             scanBarcode(context, { barcode ->
                                 //Decode and add to total
                                 // keep building last scan
-                                // add to last scane list, if too big remove fifo, recreate lastscanstatus
+                                // add to last scan list, if too big remove fifo, recreate lastscanstatus
                                 val barcodeString = barcode.rawValue
-
-
+                                val newScanStatus = ""
+                                if (currScan.intValue == TOTAL_SCANS) {
+                                    lastScan.removeAt(0)
+                                    lastScan.add(newScanStatus)
+                                }
+                                else {
+                                    lastScan.add(newScanStatus)
+                                    currScan.intValue += 1
+                                }
+                                lastScanStatus.value = lastScan.joinToString(separator = "\n") { it }
                             }, {}, {})
                         },
                         modifier = Modifier.padding(innerPadding)
