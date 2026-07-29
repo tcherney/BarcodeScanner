@@ -48,6 +48,12 @@ class MainActivity : ComponentActivity() {
                                 // keep building last scan
                                 // add to last scan list, if too big remove fifo, recreate lastscanstatus
                                 val barcodeString = barcode.rawValue
+                                var startPos = 0
+                                if (barcodeString[0] == '0') {
+                                    startPos = 1
+                                }
+                                val plu = barcodeString.substring(startPos, startPos+5)
+                                val value = if (startPos == 0) barcodeString.substring(7, 7+4) else barcodeString.substring(startPos+7, startPos+7+5)
                                 val newScanStatus = ""
                                 if (currScan.intValue == TOTAL_SCANS) {
                                     lastScan.removeAt(0)
