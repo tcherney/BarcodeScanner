@@ -53,7 +53,7 @@ class MainActivity : ComponentActivity() {
                                     startPos = 1
                                 }
                                 val plu = barcodeString.substring(startPos, startPos+5)
-                                val value = if (startPos == 0) barcodeString.substring(7, 7+4) else barcodeString.substring(startPos+7, startPos+7+5)
+                                val value = if (startPos == 0) barcodeString.substring(7, 9)+"."+barcodeString.substring(9, 11) else barcodeString.substring(8, 11)+"."+barcodeString.substring(11, 13)
                                 val newScanStatus = ""
                                 if (currScan.intValue == TOTAL_SCANS) {
                                     lastScan.removeAt(0)
