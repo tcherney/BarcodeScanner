@@ -54,7 +54,8 @@ class MainActivity : ComponentActivity() {
                                 }
                                 val plu = barcodeString.substring(startPos, startPos+5)
                                 val value = if (startPos == 0) barcodeString.substring(7, 9)+"."+barcodeString.substring(9, 11) else barcodeString.substring(8, 11)+"."+barcodeString.substring(11, 13)
-                                val newScanStatus = ""
+                                val newScanStatus = "Scanned $plu at value $$value"
+                                total.floatValue += value.toFloat()
                                 if (currScan.intValue == TOTAL_SCANS) {
                                     lastScan.removeAt(0)
                                     lastScan.add(newScanStatus)
