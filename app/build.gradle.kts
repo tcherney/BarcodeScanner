@@ -52,6 +52,8 @@ dependencies {
     implementation(libs.play.services.vision)
     implementation(libs.play.services.code.scanner)
     implementation(libs.androidx.camera.view)
+    implementation(libs.play.services.mlkit.barcode.scanning)
+    implementation(libs.androidx.camera.mlkit.vision)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
