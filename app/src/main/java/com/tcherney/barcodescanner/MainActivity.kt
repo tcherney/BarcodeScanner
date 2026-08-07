@@ -48,7 +48,7 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
-
+//TODO add list of cards for each area, could even have sections in each area
 @Composable
 fun Home() {
     val context = LocalContext.current
