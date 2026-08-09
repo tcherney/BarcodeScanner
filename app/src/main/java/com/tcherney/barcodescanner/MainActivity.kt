@@ -21,6 +21,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardColors
 import androidx.compose.material3.CardDefaults
@@ -30,6 +31,8 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableFloatState
 import androidx.compose.runtime.MutableState
@@ -40,6 +43,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -60,18 +64,31 @@ class MainActivity : ComponentActivity() {
 }
 //TODO add list of cards for each area, could even have sections in each area
 @Composable
-fun AreaView(total: Float, areaNumber: Int) {
+fun AreaView(area: Area) {
     Card(modifier = Modifier.size(200.dp),
         border = BorderStroke(2.dp, MaterialTheme.colorScheme.primary),
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)) {
-        Text("Area: $areaNumber", modifier = Modifier.padding(16.dp))
+        Row {
+            Text("Area: ", modifier = Modifier.padding(16.dp))
+            TextField(
+                area.number.toString(),
+                onValueChange = { it ->
+                    area.number = it.toInt()
+                },
+                colors = TextFieldDefaults.colors(
+                    focusedIndicatorColor = Color.Transparent,
+                    unfocusedIndicatorColor = Color.Transparent,
+                    disabledIndicatorColor = Color.Transparent
+                )
+            )
+        }
         HorizontalDivider(thickness = 6.dp)
         Box(
             contentAlignment = Alignment.Center,
             modifier = Modifier.fillMaxSize()
         ) {
             Text(
-                total.toString(),
+                area.total.toString(),
                 textAlign = TextAlign.Center,
                 fontSize = 30.sp
             )
@@ -95,8 +112,22 @@ fun Home() {
                     modifier = Modifier.weight(1f).verticalScroll(rememberScrollState()).padding(16.dp),
                 ) {
                     for (i in totals.reversed()) {
-                        AreaView(i.total, i.number)
+                        AreaView(i)
                     }
+                    IconButton(
+                        onClick = {
+                            totals.add(Area(0f,0))
+                            currScan.intValue = totals.size-1
+                        },
+                    ) {
+                        Icon(
+                            imageVector = Icons.Filled.Add,
+                            contentDescription = "new area",
+                        )
+                    }
+                    Text(
+                        lastScanStatus.value,
+                    )
                 }
                 IconButton(
                     onClick = {
@@ -135,13 +166,11 @@ fun Home() {
                     },
                 ) {
                     Icon(
-                        imageVector = Icons.Filled.Add,
+                        imageVector = Icons.Filled.Search,
                         contentDescription = "Scan new",
                     )
                 }
-                Text(
-                    lastScanStatus.value,
-                )
+
             }
         }
     }
