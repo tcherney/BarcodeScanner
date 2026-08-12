@@ -62,7 +62,7 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
-//TODO add list of cards for each area, could even have sections in each area
+//TODO test camerax implmentation
 @Composable
 fun AreaView(area: Area) {
     Card(modifier = Modifier.size(200.dp),
