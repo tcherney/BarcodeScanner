@@ -21,6 +21,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardColors
@@ -64,7 +65,7 @@ class MainActivity : ComponentActivity() {
 }
 //TODO test camerax implmentation
 @Composable
-fun AreaView(area: Area) {
+fun AreaView(area: Area, onDelete: () -> Unit) {
     Card(modifier = Modifier.size(200.dp),
         border = BorderStroke(2.dp, MaterialTheme.colorScheme.primary),
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)) {
@@ -81,6 +82,14 @@ fun AreaView(area: Area) {
                     disabledIndicatorColor = Color.Transparent
                 )
             )
+            IconButton(
+                onClick = onDelete,
+            ) {
+                Icon(
+                    imageVector = Icons.Filled.Clear,
+                    contentDescription = "Delete",
+                )
+            }
         }
         HorizontalDivider(thickness = 6.dp)
         Box(
@@ -112,7 +121,9 @@ fun Home() {
                     modifier = Modifier.weight(1f).verticalScroll(rememberScrollState()).padding(16.dp),
                 ) {
                     for (i in totals.reversed()) {
-                        AreaView(i)
+                        AreaView(i, {
+                            totals.remove(i)
+                        })
                     }
                     IconButton(
                         onClick = {
