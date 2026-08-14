@@ -17,6 +17,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
@@ -69,7 +70,7 @@ fun AreaView(area: Area, onDelete: () -> Unit) {
     Card(modifier = Modifier.size(200.dp),
         border = BorderStroke(2.dp, MaterialTheme.colorScheme.primary),
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)) {
-        Row {
+        Row(horizontalArrangement = Arrangement.SpaceEvenly) {
             Text("Area: ", modifier = Modifier.padding(16.dp))
             TextField(
                 area.number.toString(),
@@ -80,7 +81,8 @@ fun AreaView(area: Area, onDelete: () -> Unit) {
                     focusedIndicatorColor = Color.Transparent,
                     unfocusedIndicatorColor = Color.Transparent,
                     disabledIndicatorColor = Color.Transparent
-                )
+                ),
+                modifier = Modifier.width(75.dp)
             )
             IconButton(
                 onClick = onDelete,
