@@ -67,15 +67,20 @@ class MainActivity : ComponentActivity() {
 //TODO test camerax implmentation
 @Composable
 fun AreaView(area: Area, onDelete: () -> Unit) {
+    val areaAsString = remember {mutableStateOf(area.number.toString())}
     Card(modifier = Modifier.size(200.dp),
         border = BorderStroke(2.dp, MaterialTheme.colorScheme.primary),
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)) {
         Row(horizontalArrangement = Arrangement.SpaceEvenly) {
             Text("Area: ", modifier = Modifier.padding(16.dp))
             TextField(
-                area.number.toString(),
+                areaAsString.value,
                 onValueChange = { it ->
-                    area.number = it.toInt()
+                    val changed = it.toIntOrNull()
+                    if (changed != null) {
+                        area.number = changed
+                        areaAsString.value = it
+                    }
                 },
                 colors = TextFieldDefaults.colors(
                     focusedIndicatorColor = Color.Transparent,
