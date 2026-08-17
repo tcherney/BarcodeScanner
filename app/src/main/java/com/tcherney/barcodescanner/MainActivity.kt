@@ -65,6 +65,7 @@ class MainActivity : ComponentActivity() {
     }
 }
 //TODO test camerax implmentation
+//TODO add sqlite for persistent storage
 @Composable
 fun AreaView(area: Area, onDelete: () -> Unit) {
     val areaAsString = remember {mutableStateOf(area.number.toString())}
@@ -79,8 +80,8 @@ fun AreaView(area: Area, onDelete: () -> Unit) {
                     val changed = it.toIntOrNull()
                     if (changed != null) {
                         area.number = changed
-                        areaAsString.value = it
                     }
+                    areaAsString.value = it
                 },
                 colors = TextFieldDefaults.colors(
                     focusedIndicatorColor = Color.Transparent,
