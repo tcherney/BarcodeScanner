@@ -54,6 +54,7 @@ dependencies {
     implementation(libs.androidx.camera.view)
     implementation(libs.play.services.mlkit.barcode.scanning)
     implementation(libs.androidx.camera.mlkit.vision)
+    implementation(libs.androidx.room3.common.jvm)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
