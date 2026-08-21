@@ -171,7 +171,7 @@ fun Home() {
                                 10
                             ) + "." + barcodeString.substring(10, 12)
                             val newScanStatus = "Scanned $plu at value $$value"
-                            totals[currTotal.intValue].total += value.toFloat()
+                            totals[currTotal.intValue] = totals[currTotal.intValue].copy(total=totals[currTotal.intValue].total+value.toFloat() )
                             if (currScan.intValue == TOTAL_SCANS) {
                                 lastScan.removeAt(0)
                                 lastScan.add(newScanStatus)
